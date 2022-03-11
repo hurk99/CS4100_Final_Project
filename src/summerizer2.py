@@ -9,8 +9,7 @@ from watson_developer_cloud import NaturalLanguageUnderstandingV1
 from watson_developer_cloud.natural_language_understanding_v1 import Features, EntitiesOptions, KeywordsOptions
 
 
-class SearchRobot():
-
+class SearchRobot:
     def __init__(self):
         self.keywords_list = []
         self.sentences_number = 7
@@ -28,11 +27,12 @@ class SearchRobot():
 
     def get_keywords(self, sentences):
         for sentence in sentences:
-            response = self.natural_language_understanding.analyze(text=sentence,
-                                                                   features=Features(
-                                                                       keywords=KeywordsOptions(emotion=True,
-                                                                                                sentiment=True,
-                                                                                                limit=2))).get_result()
+            response = self.natural_language_understanding.analyze(
+                text=sentence,
+                features=Features(
+                    keywords=KeywordsOptions(emotion=True,
+                                             sentiment=True,
+                                             limit=2))).get_result()
 
             temp_list = []
             for keyword in response["keywords"]:
