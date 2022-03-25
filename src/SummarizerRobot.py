@@ -19,7 +19,7 @@ class SummarizerRobot:
         self.words = [word.lower() for word in self.words]
 
         # Converts the raw_text into an array of sentences
-        self.sentences = sent_tokenize(raw_text).lower()
+        self.sentences = sent_tokenize(raw_text)
         self.sentences = [sentence.lower() for sentence in self.sentences]
 
         # Create a 2D graph of each sentence compared to other sentences, each having a value showcasing their
@@ -107,7 +107,7 @@ class SummarizerRobot:
         """
         for sentence in self.sentences:
             # Go through every word in a sentence
-            words_in_sentence = sentence.sent_tokenize(sentence)
+            words_in_sentence = word_tokenize(sentence)
             for word in words_in_sentence:
                 frequency = self.word_frequency_table.get(word)
                 # If a given word is in the frequency table
@@ -117,11 +117,7 @@ class SummarizerRobot:
                     self.sentence_value_table[sentence] = old_value + frequency
 
     def find_average_sentence_value(self):
-        sum = 0
-        for sentence, value in self.sentence_value_table.values():
-            sum += value
-        average = int(sum / len(self.sentence_value_table))
-        return average
+        return sum(self.sentence_value_table.values()) / len(self.sentence_value_table)
 
     def summarize(self, value: float) -> str:
         # TODO: Utilize the similarity heuristic that I have implemented
