@@ -1,9 +1,9 @@
 import networkx as nx
-import nltk
 import numpy as np
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize, sent_tokenize
 from nltk.cluster.util import cosine_distance
+from keybert import KeyBERT
 
 
 class SummarizerRobot:
@@ -121,13 +121,14 @@ class SummarizerRobot:
 
     def summarize(self, value: float) -> str:
         # TODO: Utilize the similarity heuristic that I have implemented
-        # TODO: Create tests to ensure that the given code does work.
+
         self.create_frequency_table()
         self.set_sentence_value_table()
-        average = self.find_average_sentence_value()
-        summary = ""
+        threshold = self.find_average_sentence_value() * value
+
+        summary = []
         for sentence in self.sentences:
             sentence_value = self.sentence_value_table.get(sentence, 0)
-            if sentence_value > average * value:
-                summary += " " + sentence
+            if sentence_value > threshold:
+                summary.append(sentence)
         return summary
