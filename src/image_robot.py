@@ -18,7 +18,7 @@ class ImageRobot:
                             timeout=30, verbose=False)
 
     def get_images(self):
-        filenames = []
+        file_paths = []
         for sent in self.summary:
             keyword = self.keywords(sent)[0]
             query = keyword + " and " + self.topic
@@ -26,6 +26,6 @@ class ImageRobot:
                 self.__download_img(query)
             except:
                 print(f"Error downloading image for query {query}")
-            filenames.append(self.img_dir + "/" + query + "/Image_1.jpg")
-        return filenames
+            file_paths.append(self.img_dir + "/" + query + "/Image_1.jpg")
+        return file_paths
 

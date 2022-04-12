@@ -1,5 +1,6 @@
 from image_robot import ImageRobot
 from summarizer_robot import SummarizerRobot
+from video_robot import VideoRobot
 
 txt = """
 Northeastern University (NU or NEU) is a private research university with its main campus in Boston. 
@@ -35,16 +36,24 @@ and 2020 Beanpot, defeating Boston University, Boston College, and Harvard.
 
 
 def main():
+    # set main stuff
     main_topic = "northeastern university"
     article = txt
-    img_dir = "images"
+    img_dir = "../images"
 
+    # summarize
     sum_bot = SummarizerRobot(article)
     summary = sum_bot.summarize(1.2)
 
+    # look for images
     img_bot = ImageRobot(summary, main_topic, img_dir=img_dir)
-    filenames = img_bot.get_images()
-    print(filenames)
+    file_paths = img_bot.get_images()
+
+    # turn images into a video
+    vid_bot = VideoRobot(summary, file_paths)
+    vid_bot.downscale()
+    vid_bot.expand_images_to_frame()
+    vid_bot.img_to_video('../video.mp4')
 
 if __name__ == "__main__":
     main()
