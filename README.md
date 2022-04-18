@@ -6,3 +6,4 @@ Required libraries:
 * `pip install bing_image_downloader`
 * `pip install cv2`
 * `pip install keybert`
+* `pip install moviepy`

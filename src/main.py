@@ -1,6 +1,7 @@
 from image_robot import ImageRobot
 from summarizer_robot import SummarizerRobot
 from video_robot import VideoRobot
+import os
 
 txt = """
 Northeastern University (NU or NEU) is a private research university with its main campus in Boston. 
@@ -53,7 +54,10 @@ def main():
     vid_bot = VideoRobot(summary, file_paths)
     vid_bot.downscale()
     vid_bot.expand_images_to_frame()
-    vid_bot.img_to_video('../video.mp4')
+    mp3_paths = vid_bot.tts()
+    durations = vid_bot.get_mp3_durations(mp3_paths)
+    vid_bot.img_to_video('../video.mp4', durations)
+    vid_bot.add_sound()
 
 if __name__ == "__main__":
     main()
