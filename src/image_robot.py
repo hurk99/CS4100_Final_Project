@@ -1,3 +1,5 @@
+import os
+
 from bing_image_downloader import downloader
 from keybert import KeyBERT
 
@@ -26,6 +28,9 @@ class ImageRobot:
                 self.__download_img(query)
             except:
                 print(f"Error downloading image for query {query}")
-            file_paths.append(self.img_dir + "/" + query + "/Image_1.jpg")
+
+        for (dir_path, dir_names, file_names) in os.walk(self.img_dir):
+            file_paths += [os.path.join(dir_path, file) for file in file_names]
+
         return file_paths
 

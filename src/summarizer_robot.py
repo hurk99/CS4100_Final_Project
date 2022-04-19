@@ -1,4 +1,5 @@
 import networkx as nx
+import nltk
 import numpy as np
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize, sent_tokenize
@@ -12,6 +13,8 @@ class SummarizerRobot:
 
         # Stop word is a commonly used word that a search engine can be programmed to ignore
         # stopwords.words("english") is a given set of stopwords.
+        # nltk.download('stopwords')
+        # nltk.download('punkt')
         self.stop_words = set(stopwords.words("english"))
 
         # Converts the raw_text into an array of words
