@@ -1,4 +1,4 @@
-from SummarizerRobot import SummarizerRobot
+from summarizer_robot import SummarizerRobot
 
 txt = """Ukraine has updated its extensive wishlist of additional military assistance from the US government in the past several days to include hundreds more anti-aircraft and anti-tank missiles than previously requested, according to a document provided to CNN that details the items needed.
 The Ukrainians have submitted similar lists in recent weeks but a recent request provided to US lawmakers appears to reflect a growing need for American-made Stinger anti-aircraft missiles and Javelin anti-tank missiles -- with Ukraine saying it urgently needs 500 of each, daily. 
@@ -18,6 +18,10 @@ r.create_similarity_matrix()
 print(r.similarity_matrix)
 print()
 
+r.create_sentence_similarity_table()
+print(r.sentence_similarity_table)
+print()
+
 r.create_frequency_table()
 print(r.word_frequency_table)
 print()
@@ -26,5 +30,4 @@ r.set_sentence_value_table()
 print(r.sentence_value_table)
 print()
 
-print(r.summarize(1.1))
-print()
+print(r.summarize(1.05))

@@ -4,7 +4,6 @@ import numpy as np
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize, sent_tokenize
 from nltk.cluster.util import cosine_distance
-from keybert import KeyBERT
 
 
 class SummarizerRobot:
@@ -123,15 +122,23 @@ class SummarizerRobot:
         return sum(self.sentence_value_table.values()) / len(self.sentence_value_table)
 
     def summarize(self, value: float) -> str:
-        # TODO: Utilize the similarity heuristic that I have implemented
+
+        # Remove similar sentences
+        self.create_sentence_similarity_table()
+        for sentence in self.sentences:
+            similarity_value = self.sentence_similarity_table[sentence]
+            if similarity_value >= 0.20:
+                self.sentences.remove(sentence)
+                self.create_sentence_similarity_table()
 
         self.create_frequency_table()
         self.set_sentence_value_table()
-        threshold = self.find_average_sentence_value() * value
 
+        threshold = self.find_average_sentence_value() * value
         summary = []
         for sentence in self.sentences:
             sentence_value = self.sentence_value_table.get(sentence, 0)
+
             if sentence_value > threshold:
                 summary.append(sentence)
         return summary
